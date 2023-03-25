@@ -1,13 +1,16 @@
 import { config } from "dotenv";
-import Fastify from "fastify";
+
+import Fastify, { FastifyRequest } from "fastify";
+import cors from "@fastify/cors";
+
 import { authRoutes, productRoutes } from "./routes";
 import { connectDatabase } from "./config/database";
-
-import cors from "@fastify/cors";
+import { FastifyReply } from "fastify";
+import fastifyJwt from "@fastify/jwt";
 
 config();
 
-const fastify = Fastify({
+export const fastify = Fastify({
   logger: true,
 });
 
@@ -19,6 +22,10 @@ fastify.register(productRoutes, {
 
 fastify.register(authRoutes, {
   prefix: "/auth",
+});
+
+fastify.register(fastifyJwt, {
+  secret: String(process.env.JWT_SECRET),
 });
 
 connectDatabase();

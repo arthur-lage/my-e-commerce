@@ -1,20 +1,16 @@
 import mongoose from "mongoose";
 
-const ProductSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
     },
-    description: {
+    email: {
       type: String,
       required: true,
     },
-    price: {
-      type: Number,
-      required: true,
-    },
-    image: {
+    password: {
       type: String,
       required: true,
     },
@@ -24,4 +20,4 @@ const ProductSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model("Product", ProductSchema);
+export default mongoose.model("User", UserSchema);
